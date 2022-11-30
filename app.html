@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,59 +8,19 @@
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/LightSail_2.jpg/1920px-LightSail_2.jpg" height="200px" width="200px">
 <br>
 <br>
-<input style="width:200px;font-size:10pt;" type="text" id="order_id" placeholder="order_id" >
+<label for="amount"></label><input style="width:200px;font-size:10pt;" type="text" id="amount" placeholder="amount" >
+<button type="button" id="rzp-create-order">Create Order</button>
+<br>
+<br>
+<label for="order_id"></label><input style="width:200px;font-size:10pt;" type="text" id="order_id" placeholder="order_id" >
 <button id="rzp-confirm-order-id">Confirm</button>
 <br>
 <br>
-<button id="rzp-button1">Pay</button>
+<button id="rzp-pay">Pay</button>
 <br>
+<p id="order-id"></p>
 <p id="payment-id"></p>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script>
-    var options = {
-        "key": "RZP_API_KEY",
-        "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-        "currency": "INR",
-        "name": "Lightsail Software Services",
-        "description": "Test Transaction",
-        "image": "https://razorpay.com/build/browser/static/razorpay-logo.5cdb58df.svg",
-        "handler": function (response){
-            document.getElementById("payment-id").innerHTML = response.razorpay_payment_id;
-            alert(response.razorpay_payment_id);
-            alert(response.razorpay_order_id);
-            alert(response.razorpay_signature)
-        },
-        "prefill": {
-            "name": "Mehul Sharma",
-            "email": "mehulsharma@gmail.com",
-            "contact": "9999999999"
-        },
-        "notes": {
-            "address": "BLR"
-        },
-        "theme": {
-            "color": "#6f1632"
-        }
-    };
-    document.getElementById('rzp-confirm-order-id').onclick = function(e){
-        const order_id = document.getElementById("order_id").value;
-        alert(order_id)
-        options["order_id"] = String(order_id)
-    }
-    document.getElementById('rzp-button1').onclick = function(e){
-        var rzp1 = new Razorpay(options);
-        rzp1.on('payment.failed', function (response){
-            alert(response.error.code);
-            alert(response.error.description);
-            alert(response.error.source);
-            alert(response.error.step);
-            alert(response.error.reason);
-            alert(response.error.metadata.order_id);
-            alert(response.error.metadata.payment_id);
-        });
-        rzp1.open();
-        e.preventDefault();
-    }
-</script>
+<script src="script.js"></script>
 </body>
 </html>

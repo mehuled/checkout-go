@@ -11,12 +11,11 @@ import (
 	"time"
 )
 
-var APIKey = os.Getenv("RZP_API_KEY")
-var APISecret = os.Getenv("RZP_API_SECRET")
-
 var client *razorpay.Client
 
 func init() {
+	var APIKey = os.Getenv("RZP_KEY_ID")
+	var APISecret = os.Getenv("RZP_KEY_SECRET")
 	client = razorpay.NewClient(APIKey, APISecret)
 }
 
