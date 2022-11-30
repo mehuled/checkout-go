@@ -58,10 +58,10 @@ func CreateOrder(ctx *gin.Context) {
 func CreateCustomer(c *gin.Context) {
 	customerParams := map[string]interface{}{
 		"name":          "Mehul Sharma",
-		"contact":       "8769883659",
+		"contact":       "8769888888",
 		"email":         fmt.Sprintf("mehulsharma%d.me@gmail.com", rand.New(rand.NewSource(int64(time.Now().Second()))).Int()),
 		"fail_existing": "0",
-		"gstin":         "05BPNPS8985R1ZD",
+		"gstin":         "05BPNPS8989Q2AB",
 	}
 	response, err := client.Customer.Create(customerParams, nil)
 	if err != nil {
