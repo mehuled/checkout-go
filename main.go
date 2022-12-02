@@ -24,6 +24,7 @@ func main() {
 	router.GET("/order", CreateOrder)
 	router.GET("/customer", CreateCustomer)
 	router.GET("/payment/:id", FetchPaymentById)
+	router.GET("/payments", FetchAllPayments)
 	err := router.Run("localhost:8081")
 	if err != nil {
 		panic(err)
@@ -32,8 +33,9 @@ func main() {
 }
 
 func CreateOrder(c *gin.Context) {
+	queryParams := c.Request.URL.Query()
 	orderParams := map[string]interface{}{
-		"amount":   5000,
+		"amount":   queryParams.Get("amount"),
 		"currency": "INR",
 		"receipt":  "some_receipt_id",
 	}
@@ -100,6 +102,27 @@ func FetchPaymentById(c *gin.Context) {
 
 	responseModifiers(c)
 	c.IndentedJSON(http.StatusOK, payment)
+}
+
+func FetchAllPayments(c *gin.Context) {
+	response, err := client.Payment.All(map[string]interface{}{
+		"count": 2,
+	}, nil)
+	if err != nil {
+		c.AbortWithStatus(http.StatusInternalServerError)
+	}
+
+	var fetchAllPaymentResponse FetchAllPaymentsResponse
+	responseBytes, err := json.MarshalIndent(response, "", "    ")
+	fmt.Println(string(responseBytes))
+
+	err = json.Unmarshal(responseBytes, &fetchAllPaymentResponse)
+	if err != nil {
+		c.AbortWithStatus(http.StatusInternalServerError)
+	}
+
+	responseModifiers(c)
+	c.IndentedJSON(http.StatusOK, fetchAllPaymentResponse.Items)
 }
 
 func responseModifiers(c *gin.Context) {

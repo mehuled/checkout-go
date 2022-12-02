@@ -1,6 +1,5 @@
 var options = {
     "key": "rzp_test_2V4Q2lxFE0LPwf",
-    "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     "currency": "INR",
     "name": "Lightsail Software Services",
     "description": "Test Transaction",
@@ -35,7 +34,8 @@ document.getElementById('rzp-create-order').onclick = function(e){
             document.getElementById("order_id").setAttribute('value', orderId)
         }
     };
-    xhttp.open("GET", "http://localhost:8081/order", true);
+    const amount = document.getElementById("amount").value
+    xhttp.open("GET", `http://localhost:8081/order?amount=${amount}`, true);
     xhttp.send();
 
 }
