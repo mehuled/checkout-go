@@ -31,7 +31,7 @@ func main() {
 
 }
 
-func CreateOrder(ctx *gin.Context) {
+func CreateOrder(c *gin.Context) {
 	orderParams := map[string]interface{}{
 		"amount":   5000,
 		"currency": "INR",
@@ -39,7 +39,7 @@ func CreateOrder(ctx *gin.Context) {
 	}
 	response, err := client.Order.Create(orderParams, nil)
 	if err != nil {
-		ctx.AbortWithStatus(500)
+		c.AbortWithStatus(500)
 	}
 
 	var order Order
@@ -48,10 +48,11 @@ func CreateOrder(ctx *gin.Context) {
 
 	err = json.Unmarshal(responseBytes, &order)
 	if err != nil {
-		ctx.AbortWithStatus(500)
+		c.AbortWithStatus(500)
 	}
 
-	ctx.IndentedJSON(http.StatusOK, order)
+	responseModifiers(c)
+	c.IndentedJSON(http.StatusOK, order)
 }
 
 func CreateCustomer(c *gin.Context) {
@@ -76,6 +77,7 @@ func CreateCustomer(c *gin.Context) {
 		c.AbortWithStatus(http.StatusInternalServerError)
 	}
 
+	responseModifiers(c)
 	c.IndentedJSON(http.StatusOK, customer)
 }
 
@@ -96,5 +98,10 @@ func FetchPaymentById(c *gin.Context) {
 		c.AbortWithStatus(http.StatusInternalServerError)
 	}
 
+	responseModifiers(c)
 	c.IndentedJSON(http.StatusOK, payment)
+}
+
+func responseModifiers(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "*")
 }
