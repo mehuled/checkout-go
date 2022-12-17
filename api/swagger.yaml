@@ -82,11 +82,11 @@ components:
           example: 0
         created_at:
           type: string
-          format: date-time
+          example: "123424342342"
       example:
         amount: 1000000
         amount_paid: 1000000
-        created_at: 2000-01-23T04:56:07.000+00:00
+        created_at: "123424342342"
         currency: INR
         receipt: Receipt No. 1
         id: order_Krk79GrlWt7KE5
@@ -131,11 +131,11 @@ components:
           example: 0
         created_at:
           type: string
-          format: date-time
+          example: "12312432211"
       example:
         amount: 1000000
         amount_paid: 1000000
-        created_at: 2000-01-23T04:56:07.000+00:00
+        created_at: "12312432211"
         currency: INR
         receipt: Receipt No. 1
         id: pay_Krk79GrlWt7KE5
@@ -162,7 +162,7 @@ components:
         items:
         - amount: 1000000
           amount_paid: 1000000
-          created_at: 2000-01-23T04:56:07.000+00:00
+          created_at: "12312432211"
           currency: INR
           receipt: Receipt No. 1
           id: pay_Krk79GrlWt7KE5
@@ -173,7 +173,7 @@ components:
           attempts: 0
         - amount: 1000000
           amount_paid: 1000000
-          created_at: 2000-01-23T04:56:07.000+00:00
+          created_at: "12312432211"
           currency: INR
           receipt: Receipt No. 1
           id: pay_Krk79GrlWt7KE5
